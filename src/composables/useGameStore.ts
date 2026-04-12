@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { io } from 'socket.io-client'
+import { io, type Socket } from 'socket.io-client'
 
 import router from '../router.js'
 import type { Card } from '../types/index.js'
@@ -35,7 +35,7 @@ export interface Room {
 }
 
 interface GameStoreState {
-  socket: unknown | null
+  socket: Socket | null
   isConnected: boolean
   rooms: Room[]
   currentRoomId: string | null
@@ -159,19 +159,19 @@ export const useGameStore = defineStore('game', {
     },
 
     loadRooms() {
-      const socket = this.socket as unknown
+      const socket = this.socket
       if (!socket) return
       socket.emit('getRooms')
     },
 
     createRoom(deckId: number) {
-      const socket = this.socket as unknown
+      const socket = this.socket
       if (!socket) return
       socket.emit('createRoom', { deckId })
     },
 
     joinRoom(roomId: string, deckId: number) {
-      const socket = this.socket as unknown
+      const socket = this.socket
       if (!socket) return
       this.currentRoomId = roomId
       socket.emit('joinRoom', { roomId, deckId })
