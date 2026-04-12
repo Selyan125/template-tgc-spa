@@ -7,7 +7,9 @@
           Choisissez un deck, créez ou rejoignez une room et lancez une partie.
         </p>
       </div>
-      <img src="/gameplay.avif" alt="Gameplay" class="home__hero-image" />
+      <div class="home__hero-visual">
+        <span>Gameplay</span>
+      </div>
     </div>
 
     <div class="home__content">
@@ -146,9 +148,17 @@ watch(
   margin: 0 0 8px;
 }
 
-.home__hero-image {
-  max-width: 420px;
+.home__hero-visual {
+  width: 420px;
+  max-width: 100%;
+  height: 240px;
   border-radius: 16px;
+  background: radial-gradient(circle at top left, #18a058, #2080f0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
 }
 
 .home__content {
