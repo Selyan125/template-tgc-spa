@@ -53,7 +53,7 @@ const storage = useStorage()
 
 export const useGameStore = defineStore('game', {
   state: (): GameStoreState => ({
-    socket: null,
+    socket: null as unknown,
     isConnected: false,
     rooms: [],
     currentRoomId: null,
