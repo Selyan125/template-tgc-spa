@@ -35,7 +35,7 @@ export interface Room {
 }
 
 interface GameStoreState {
-  socket: unknown
+  socket: unknown | null
   isConnected: boolean
   rooms: Room[]
   currentRoomId: string | null
@@ -53,7 +53,7 @@ const storage = useStorage()
 
 export const useGameStore = defineStore('game', {
   state: (): GameStoreState => ({
-    socket: null as unknown,
+    socket: null,
     isConnected: false,
     rooms: [],
     currentRoomId: null,
@@ -159,19 +159,22 @@ export const useGameStore = defineStore('game', {
     },
 
     loadRooms() {
-      if (!this.socket) return
-      this.socket.emit('getRooms')
+      const socket = this.socket as unknown
+      if (!socket) return
+      socket.emit('getRooms')
     },
 
     createRoom(deckId: number) {
-      if (!this.socket) return
-      this.socket.emit('createRoom', { deckId })
+      const socket = this.socket as unknown
+      if (!socket) return
+      socket.emit('createRoom', { deckId })
     },
 
     joinRoom(roomId: string, deckId: number) {
-      if (!this.socket) return
+      const socket = this.socket as unknown
+      if (!socket) return
       this.currentRoomId = roomId
-      this.socket.emit('joinRoom', { roomId, deckId })
+      socket.emit('joinRoom', { roomId, deckId })
     },
 
     // Game actions

@@ -49,9 +49,7 @@ const router = useRouter()
 const message = useMessage()
 
 onMounted(() => {
-  if (!gameStore.socket) {
-    gameStore.connect()
-  }
+  gameStore.connect()
 })
 
 const myBoard = computed(() => gameStore.myBoard)
