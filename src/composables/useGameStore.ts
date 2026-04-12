@@ -34,13 +34,8 @@ export interface Room {
   status?: 'waiting' | 'running'
 }
 
-interface GameSocket {
-  emit: (event: string, ...args: unknown[]) => void
-  on: (event: string, listener: (...args: unknown[]) => void) => void
-}
-
 interface GameStoreState {
-  socket: GameSocket | null
+  socket: unknown
   isConnected: boolean
   rooms: Room[]
   currentRoomId: string | null
@@ -105,7 +100,7 @@ export const useGameStore = defineStore('game', {
       this.socket = io(SOCKET_URL, {
         auth: { token },
         transports: ['websocket'],
-      }) as unknown as GameSocket
+      })
 
       this.socket.on('connect', () => {
         this.isConnected = true
