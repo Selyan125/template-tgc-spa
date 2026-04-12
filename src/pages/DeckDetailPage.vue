@@ -58,14 +58,7 @@ const deckCardIds = computed(() => {
   const d = deck.value
   if (!d) return []
 
-  return (d.cards ?? [])
-    .map((c: unknown) => {
-      if (typeof c?.cardId === 'number') return c.cardId
-      if (typeof c?.id === 'number' && typeof c?.imgUrl === 'string')
-        return c.id
-      return null
-    })
-    .filter((id: number | null): id is number => id !== null)
+  return (d.cards ?? []).map((c) => c.cardId)
 })
 
 const deckCards = computed(() => {
