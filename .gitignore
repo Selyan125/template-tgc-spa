@@ -26,5 +26,4 @@ Thumbs.db
 npm-debug.log*
 
 # Design mockups (not used in code)
-/login.avif
-/signin.avif
+/*.avif

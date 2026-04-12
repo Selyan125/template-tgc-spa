@@ -32,7 +32,8 @@ const request = async <T>(path: string, options: RequestInit = {}) => {
 
   // Timeout pour éviter un loading infini si l'API est injoignable
   const controller = new AbortController()
-  const timeoutId = window.setTimeout(() => controller.abort(), 15000)
+  // Onrender peut avoir un cold start assez long : on met 60s pour éviter les faux timeouts
+  const timeoutId = window.setTimeout(() => controller.abort(), 60000)
 
   let res: Response
   try {
@@ -44,7 +45,7 @@ const request = async <T>(path: string, options: RequestInit = {}) => {
   } catch (e) {
     if ((e as { name?: string })?.name === 'AbortError') {
       throw new Error(
-        "Timeout: l'API ne répond pas (15s). Vérifie que le backend tourne et que VITE_API_BASE_URL est correcte.",
+        "Timeout: l'API ne répond pas (60s). Si tu es sur Onrender, attends le démarrage (cold start) ou réessaie. Vérifie aussi VITE_API_BASE_URL.",
       )
     }
     throw new Error(
