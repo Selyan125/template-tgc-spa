@@ -31,7 +31,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               state: 'all',
-              per_page: 100
+              per_page: 100,
             });
 
             let closedCount = 0;
@@ -41,7 +41,7 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  state: 'closed'
+                  state: 'closed',
                 });
               }
               if (!issue.locked) {
@@ -49,10 +49,12 @@ jobs:
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: issue.number,
-                  lock_reason: 'resolved'
+                  lock_reason: 'resolved',
                 });
               }
-              console.log(`  🗑️  Closed and locked issue #${issue.number}: "${issue.title}"`);
+              console.log(
+                `  🗑️  Closed and locked issue #${issue.number}: "${issue.title}"`
+              );
               closedCount++;
             }
             console.log(`✅ Closed and locked ${closedCount} existing issues`);
@@ -67,11 +69,12 @@ jobs:
                 repo: context.repo.repo,
                 title: issueData.title,
                 body: issueData.body,
-                labels: issueData.labels || []
+                labels: issueData.labels || [],
               });
-              console.log(`  ✅ Issue created: "${issueData.title}" (#${newIssue.data.number})`);
+              console.log(
+                `  ✅ Issue created: "${issueData.title}" (#${newIssue.data.number})`
+              );
               createdCount++;
             }
 
             console.log(`\n📊 Summary: ${closedCount} closed, ${createdCount} created`);
-
