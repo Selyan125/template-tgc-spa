@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { io, type Socket } from 'socket.io-client'
+import { io } from 'socket.io-client'
 
 import router from '../router.js'
 import type { Card } from '../types/index.js'
@@ -35,7 +35,7 @@ export interface Room {
 }
 
 interface GameStoreState {
-  socket: Socket | null
+  socket: GameSocket | null
   isConnected: boolean
   rooms: Room[]
   currentRoomId: string | null
@@ -45,6 +45,11 @@ interface GameStoreState {
   result: 'win' | 'lose' | 'draw' | null
   lastError: string | null
   lastMessage: string | null
+}
+
+interface GameSocket {
+  on(event: string, listener: (...args: unknown[]) => void): GameSocket
+  emit(event: string, ...args: unknown[]): void
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string
