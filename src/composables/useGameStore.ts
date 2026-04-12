@@ -34,7 +34,10 @@ export interface Room {
   status?: 'waiting' | 'running'
 }
 
-type GameSocket = unknown
+interface GameSocket {
+  emit: (event: string, ...args: unknown[]) => void
+  on: (event: string, listener: (...args: unknown[]) => void) => void
+}
 
 interface GameStoreState {
   socket: GameSocket | null
