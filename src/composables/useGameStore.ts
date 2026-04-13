@@ -48,8 +48,11 @@ interface GameStoreState {
 }
 
 interface GameSocket {
-  on(event: string, listener: (...args: unknown[]) => void): GameSocket
-  emit(event: string, ...args: unknown[]): void
+  on<TArgs extends unknown[]>(
+    event: string,
+    listener: (...args: TArgs) => void,
+  ): GameSocket
+  emit<TArgs extends unknown[]>(event: string, ...args: TArgs): void
 }
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL as string
